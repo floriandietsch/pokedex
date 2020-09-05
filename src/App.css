@@ -7,3 +7,12 @@
 .navbar {
   background-color: #8b0000 !important;
 }
+
+.btn {
+  padding: 3px;
+  margin-right: 3px;
+}
+
+.card-title {
+  text-align: center;
+}

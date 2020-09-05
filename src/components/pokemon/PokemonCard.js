@@ -35,6 +35,7 @@ export default class PokemonCard extends Component {
     pokemonIndex: "",
     imageLoading: true,
     toManyRequests: false,
+    linkText: "",
   };
 
   componentDidMount() {
@@ -42,15 +43,46 @@ export default class PokemonCard extends Component {
     const pokemonIndex = url.split("/")[url.split("/").length - 2];
     const imageUrl = `https://github.com/PokeAPI/sprites/blob/master/sprites/pokemon/${pokemonIndex}.png?raw=true`;
 
-    this.setState({ name, imageUrl, pokemonIndex });
+    this.setState({
+      name,
+      imageUrl,
+      pokemonIndex,
+    });
   }
 
   render() {
     return (
       <div className="col-md-3 col-sm-6 mb-5">
-        <StyledLink to={`pokemon/${this.state.pokemonIndex}`}>
-          <Card className="card">
-            <h5 className="card-header">{this.state.pokemonIndex}</h5>
+        <Card className="card">
+          <h5 className="card-header">
+            {this.state.pokemonIndex}
+            {this.props.showButtons ? (
+              <div className="float-right">
+                {!this.props.myPokemon.includes(this.state.pokemonIndex) ? (
+                  <button
+                    className="btn btn-primary"
+                    onClick={() =>
+                      this.props.addPokemonToMyList(this.state.pokemonIndex)
+                    }
+                  >
+                    Add
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() =>
+                      this.props.removePokemonFromMyList(
+                        this.state.pokemonIndex
+                      )
+                    }
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+            ) : null}
+          </h5>
+          <StyledLink to={`pokemon/${this.state.pokemonIndex}`}>
             <Sprite
               className="card-img-top rounded mx-auto mt-2"
               onLoad={() => this.setState({ imageLoading: false })}
@@ -84,8 +116,8 @@ export default class PokemonCard extends Component {
                   .join(" ")}
               </h6>
             </div>
-          </Card>
-        </StyledLink>
+          </StyledLink>
+        </Card>
       </div>
     );
   }
