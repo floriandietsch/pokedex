@@ -375,7 +375,7 @@ export default class Pokemon extends Component {
                     <h6 className="float-right">Weight:</h6>
                   </div>
                   <div className="col-6">
-                    <h6 className="float-left">{this.state.weight} gr</h6>
+                    <h6 className="float-left">{this.state.weight} g</h6>
                   </div>
                   <div className="col-6">
                     <h6 className="float-right">Catch Rate:</h6>
